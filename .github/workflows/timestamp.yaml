@@ -42,3 +42,4 @@ jobs:
           else
             git commit -m "ci: add timestamp for ${{ github.actor }}"
             git push origin HEAD:${{ github.head_ref }}
+          fi;
