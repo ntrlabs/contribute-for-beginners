@@ -19,7 +19,6 @@ st.write("This page shows all the contributors to this project and the time of t
 
 # Load and display contributions
 contributions = load_contributions()
-print(contributions)
 if contributions:
     df = pd.DataFrame(contributions)
     try:
@@ -27,6 +26,8 @@ if contributions:
         df = df.sort_values(by='timestamp', ascending=False)
     except KeyError:
         df['contributed_at'] = None
+    
+    df.drop('timestamp', axis=1, inplace=True)
     st.dataframe(df)
 else:
     st.write("Nothing to show here..")
