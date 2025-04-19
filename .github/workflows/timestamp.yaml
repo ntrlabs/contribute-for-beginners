@@ -1,0 +1,44 @@
+name: Add Timestamp on PR
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  update-timestamp:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Add timestamp to contributions.json
+        run: |
+          TIMESTAMP=$(date --utc +%Y-%m-%dT%H:%M:%SZ)
+          CONTRIBUTOR_NAME="${{ github.actor }}"
+          echo "Adding timestamp for $CONTRIBUTOR_NAME at $TIMESTAMP"
+
+          TMP_FILE=$(mktemp)
+
+          jq --arg github_username "$CONTRIBUTOR_NAME" --arg ts "$TIMESTAMP" \
+            'map(if .github_username == $name and (.timestamp | not) then . + {timestamp: $ts} else . end)' \
+            contributions.json > "$TMP_FILE" && mv "$TMP_FILE" contributions.json
+
+      - name: Commit and push
+        run: |
+          git add contributions.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "ci: add timestamp for ${{ github.actor }}"
+            git push origin HEAD:${{ github.head_ref }}
