@@ -14,7 +14,7 @@ def load_contributions():
     return []
 
 # Display Streamlit page
-st.markdown("# List of contributors to `Contributors For Beginners`")
+st.markdown("# List of contributors to `Contributing For Beginners`")
 st.write("This page shows all the contributors to this project and the time of their contributions.")
 
 # Load and display contributions

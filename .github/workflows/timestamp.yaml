@@ -4,6 +4,9 @@ on:
   pull_request:
     types: [opened, synchronize]
 
+permissions:
+  contents: write
+
 jobs:
   update-timestamp:
     runs-on: ubuntu-latest
@@ -22,7 +25,7 @@ jobs:
       - name: Install jq
         run: sudo apt-get install -y jq
 
-      - name: Add timestamp to contributions.json
+      - name: Add timestamp to contributors.json
         run: |
           TIMESTAMP=$(date --utc +%Y-%m-%dT%H:%M:%SZ)
           CONTRIBUTOR_NAME="${{ github.actor }}"
@@ -30,15 +33,16 @@ jobs:
 
           TMP_FILE=$(mktemp)
 
-          jq --arg github_username "$CONTRIBUTOR_NAME" --arg ts "$TIMESTAMP" \
+          jq --arg name "$CONTRIBUTOR_NAME" --arg ts "$TIMESTAMP" \
             'map(if .github_username == $name and (.timestamp | not) then . + {timestamp: $ts} else . end)' \
-            contributions.json > "$TMP_FILE" && mv "$TMP_FILE" contributions.json
+            contributors.json > "$TMP_FILE" && mv "$TMP_FILE" contributors.json
 
       - name: Commit and push
         run: |
-          git add contributions.json
+          git add contributors.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
             git commit -m "ci: add timestamp for ${{ github.actor }}"
             git push origin HEAD:${{ github.head_ref }}
+          fi;

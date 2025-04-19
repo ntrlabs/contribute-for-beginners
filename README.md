@@ -50,4 +50,9 @@ contributing-for-beginners/
 6. **Wait** for review:
    - Wait for repository maintainers to review your changes and approve them.
    - Once approved, your changes are merged (i.e incorporated into the main repo) and your name will now appear on the Streamlit app.
+   - Visit the streamlit app here [Contributing for beginners](https://contribute-for-beginners.streamlit.app/) to verify that your name and contribution date appears.
+
+&nbsp;
+
+#### Congratulations on your first contribution to a github project 🎉🥳
 
