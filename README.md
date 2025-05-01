@@ -8,25 +8,21 @@ Welcome to **Contributing for beginners**! This repository is designed for begin
 contributing-for-beginners/
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml               # GitHub Actions workflow for deployment
-├── assets/
-│   └── images/                      # Optional: Any images for the project
-├── docs/
-│   └── how_to_contribute.md         # Guide for contributing
+│       └── deploy.yml
+│       └── timestamp.yml
 ├── src/
 │   └── app.py                       # Streamlit Python file for contributors page
-├── contributions.json               # File to store contributions (Manually updated by contributors)
-├── pyproject.toml                   # Python dependencies and configurations
+├── contributors.json                # File to store contributions (Manually updated by contributors)
+├── requirements.txt                 # Python dependencies
 ├── README.md                        # Main README to introduce the repo
-└── CONTRIBUTING.md                  # Instructions on contributing
 ```
 
 ## Steps to Contribute
 
 1. **Clone** the repository:
    ```bash
-   git clone https://github.com/your-username/contributing-for-beginners.git
-   cd contributing-for-beginners
+   git clone https://github.com/ntrlabs/contribute-for-beginners.git
+   cd contribute-for-beginners
    ````
 
 2. **Create** a branch:
@@ -34,8 +30,8 @@ contributing-for-beginners/
    git checkout -b my-branch-name
    ````
 
-3. **Update** `contributions.json` and save your changes:
-   - Add your `full_name` and `github_username` to the `contributions.json` file. **IMPORTANT: DO NOT add a timestamp manually**
+3. **Update** `contributors.json` and save your changes:
+   - Add your `full_name` and `github_username` to the `contributors.json` file. **IMPORTANT: DO NOT add a timestamp manually**
    - Add your changes to git tracking : `git add contributions.json`
    - Save your changes by creating a new commit on your branch : `git commit -m 'add myself'`
 
